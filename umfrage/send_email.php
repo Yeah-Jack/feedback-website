@@ -3,9 +3,9 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require __DIR__ . '/../PHPMailer-master/src/Exception.php';
-require __DIR__ . '/../PHPMailer-master/src/PHPMailer.php';
-require __DIR__ . '/../PHPMailer-master/src/SMTP.php';
+require __DIR__ . '/../PHPMailer/src/Exception.php';
+require __DIR__ . '/../PHPMailer/src/PHPMailer.php';
+require __DIR__ . '/../PHPMailer/src/SMTP.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $recipient_email = filter_var($_POST['recipient_email'], FILTER_SANITIZE_EMAIL);
