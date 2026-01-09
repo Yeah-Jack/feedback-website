@@ -1,6 +1,6 @@
 # School Survey
 
-[![DeepSource](https://app.deepsource.com/gh/Yeah-Jack/school-survey.svg/?label=active+issues&show_trend=true&token=ofFKYIr76PmRBhAfkcL4Oi2h)](https://app.deepsource.com/gh/Yeah-Jack/school-survey/)
+[![DeepSource](https://app.deepsource.com/gh/Yeah-Jack/feedback-website.svg/?label=active+issues&show_trend=true&token=tRY7kIyOsvQrGFaLqvh5BEsZ)](https://app.deepsource.com/gh/Yeah-Jack/feedback-website/)
 
 ## Getting Started
 
