@@ -1,10 +1,25 @@
 version = 1
 
 [[analyzers]]
+name = "sql"
+
+[[analyzers]]
 name = "javascript"
 
   [analyzers.meta]
-  environment = ["browser"]
+  environment = [
+    "browser",
+    "jquery"
+  ]
 
 [[analyzers]]
 name = "php"
+
+[[code_formatters]]
+name = "php-cs-fixer"
+
+[[code_formatters]]
+name = "standardjs"
+
+[[code_formatters]]
+name = "prettier"
