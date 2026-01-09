@@ -1,292 +1,362 @@
 <!doctype html>
 <html lang="de">
-	<head>
-		<title>Umfrage</title>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<link rel="icon" href="/assets/images/favicon.png" />
-		<link rel="preconnect" href="https://rsms.me/" />
-		<link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
-		<script src="https://cdn.tailwindcss.com"></script>
-		<script src="/assets/header/script.js"></script>
-		<script src="/assets/footer/script.js"></script>
-		<script
-			src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-			crossorigin="anonymous"
-			referrerpolicy="no-referrer"></script>
-		<script>
-			tailwind.config = {
-				theme: {
-					extend: {
-						fontFamily: {
-							sans: [
-								"InterVariable",
-								"ui-sans-serif",
-								"system-ui",
-								"sans-serif",
-								'"Apple Color Emoji"',
-								'"Segoe UI Emoji"',
-								'"Segoe UI Symbol"',
-								'"Noto Color Emoji"',
-							],
-						},
-					},
-				},
-			}
+  <head>
+    <title>Umfrage</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="icon" href="/assets/images/favicon.png" />
+    <link rel="preconnect" href="https://rsms.me/" />
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/assets/header/script.js"></script>
+    <script src="/assets/footer/script.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: [
+                "InterVariable",
+                "ui-sans-serif",
+                "system-ui",
+                "sans-serif",
+                '"Apple Color Emoji"',
+                '"Segoe UI Emoji"',
+                '"Segoe UI Symbol"',
+                '"Noto Color Emoji"',
+              ],
+            },
+          },
+        },
+      };
 
-			document.addEventListener("DOMContentLoaded", () => {
-				const urlParams = new URLSearchParams(window.location.search)
-				const surveyId = urlParams.get("id")
-				const surveyTitle = document.getElementById("surveyTitle")
-				const feedbackInput = document.getElementById("feedbackInput")
-				const surveyForm = document.getElementById("surveyForm")
-				const errorContainer = document.getElementById("errorContainer")
+      document.addEventListener("DOMContentLoaded", () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const surveyId = urlParams.get("id");
+        const surveyTitle = document.getElementById("surveyTitle");
+        const feedbackInput = document.getElementById("feedbackInput");
+        const surveyForm = document.getElementById("surveyForm");
+        const errorContainer = document.getElementById("errorContainer");
 
-				const surveys = {
-					1: {
-						title: "TKDV-Kurs Bewertung 24/25",
-						description: "Dein Tipp für den TKDV-Kurs:",
-					},
-					2: {
-						title: "Schulkultur",
-						description: "Dein Tipp für das Schulleben:",
-					},
-				}
+        const surveys = {
+          1: {
+            title: "TKDV-Kurs Bewertung 24/25",
+            description: "Dein Tipp für den TKDV-Kurs:",
+          },
+          2: {
+            title: "Schulkultur",
+            description: "Dein Tipp für das Schulleben:",
+          },
+        };
 
-				if (surveys[surveyId]) {
-					surveyTitle.textContent = surveys[surveyId].title
-					feedbackInput.textContent = surveys[surveyId].description
-					errorContainer.classList.add("hidden")
-					surveyForm.classList.remove("hidden")
-				} else {
-					errorContainer.classList.remove("hidden")
-					surveyForm.classList.add("hidden")
-				}
-				surveyForm.addEventListener("submit", (e) => {
-					e.preventDefault()
-					surveyForm.classList.add("hidden")
-					document.getElementById("feedbackInput").value = ""
-				})
-			})
-		</script>
-	</head>
-	<body>
-		<main>
-			<div class="bg-white">
-				<div class="relative isolate px-6 pt-12 lg:px-8">
-					<div
-						class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
-						aria-hidden="true">
-						<div
-							class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
-							style="
-								clip-path: polygon(
-									74.1% 44.1%,
-									100% 61.6%,
-									97.5% 26.9%,
-									85.5% 0.1%,
-									80.7% 2%,
-									72.5% 32.5%,
-									60.2% 62.4%,
-									52.4% 68.1%,
-									47.5% 58.3%,
-									45.2% 34.5%,
-									27.5% 76.7%,
-									0.1% 64.9%,
-									17.9% 100%,
-									27.6% 76.8%,
-									76.1% 97.7%,
-									74.1% 44.1%
-								);
-							"></div>
-					</div>
-					<div class="container mx-auto px-4 py-32 sm:py-48 lg:py-56">
-						<div class="mx-auto max-w-3xl">
-							<div id="errorContainer" class="mb-4 hidden w-full max-w-full rounded-md p-6 shadow-md">
-								<div class="text-center">
-									<h2 class="mb-4 text-2xl font-semibold text-red-600">Fehler</h2>
-									<p class="text-slate-600">Die angeforderte Umfrage existiert nicht.</p>
-									<a href="/" class="mt-4 inline-block text-blue-600 hover:text-blue-800">Zurück zur Startseite</a>
-								</div>
-							</div>
-							<h1 class="mb-8 text-center text-3xl font-bold text-slate-800">Umfrage</h1>
+        if (surveys[surveyId]) {
+          surveyTitle.textContent = surveys[surveyId].title;
+          feedbackInput.textContent = surveys[surveyId].description;
+          errorContainer.classList.add("hidden");
+          surveyForm.classList.remove("hidden");
+        } else {
+          errorContainer.classList.remove("hidden");
+          surveyForm.classList.add("hidden");
+        }
+        surveyForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+          surveyForm.classList.add("hidden");
+          document.getElementById("feedbackInput").value = "";
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <main>
+      <div class="bg-white">
+        <div class="relative isolate px-6 pt-12 lg:px-8">
+          <div
+            class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
+            aria-hidden="true"
+          >
+            <div
+              class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+              style="
+                clip-path: polygon(
+                  74.1% 44.1%,
+                  100% 61.6%,
+                  97.5% 26.9%,
+                  85.5% 0.1%,
+                  80.7% 2%,
+                  72.5% 32.5%,
+                  60.2% 62.4%,
+                  52.4% 68.1%,
+                  47.5% 58.3%,
+                  45.2% 34.5%,
+                  27.5% 76.7%,
+                  0.1% 64.9%,
+                  17.9% 100%,
+                  27.6% 76.8%,
+                  76.1% 97.7%,
+                  74.1% 44.1%
+                );
+              "
+            ></div>
+          </div>
+          <div class="container mx-auto px-4 py-32 sm:py-48 lg:py-56">
+            <div class="mx-auto max-w-3xl">
+              <div
+                id="errorContainer"
+                class="mb-4 hidden w-full max-w-full rounded-md p-6 shadow-md"
+              >
+                <div class="text-center">
+                  <h2 class="mb-4 text-2xl font-semibold text-red-600">
+                    Fehler
+                  </h2>
+                  <p class="text-slate-600">
+                    Die angeforderte Umfrage existiert nicht.
+                  </p>
+                  <a
+                    href="/"
+                    class="mt-4 inline-block text-blue-600 hover:text-blue-800"
+                    >Zurück zur Startseite</a
+                  >
+                </div>
+              </div>
+              <h1 class="mb-8 text-center text-3xl font-bold text-slate-800">
+                Umfrage
+              </h1>
 
-							<div class="mb-8">
-								<input
-									type="text"
-									id="teacher_search"
-									class="block w-full rounded-md px-3 py-1.5 text-slate-900 outline outline-1 outline-slate-300 focus:outline-2 focus:outline-indigo-600"
-									placeholder="Suche für einen Lehrer..." />
-							</div>
+              <div class="mb-8">
+                <input
+                  type="text"
+                  id="teacher_search"
+                  class="block w-full rounded-md px-3 py-1.5 text-slate-900 outline outline-1 outline-slate-300 focus:outline-2 focus:outline-indigo-600"
+                  placeholder="Suche für einen Lehrer..."
+                />
+              </div>
 
-							<div id="searchresult" class="mb-8 hidden"></div>
+              <div id="searchresult" class="mb-8 hidden"></div>
 
-							<div id="surveyForm">
-								<div id="contactForm" class="hidden rounded-lg bg-white p-6 shadow-md">
-									<h2 id="surveyTitle" class="mb-4 text-2xl font-semibold text-slate-800"></h2>
-									<p class="mb-6 text-slate-600"></p>
-									<form id="emailForm" class="space-y-4">
-										<input type="hidden" id="recipient_email" name="recipient_email" />
-										<input type="hidden" id="recipient_name" name="recipient_name" />
+              <div id="surveyForm">
+                <div
+                  id="contactForm"
+                  class="hidden rounded-lg bg-white p-6 shadow-md"
+                >
+                  <h2
+                    id="surveyTitle"
+                    class="mb-4 text-2xl font-semibold text-slate-800"
+                  ></h2>
+                  <p class="mb-6 text-slate-600"></p>
+                  <form id="emailForm" class="space-y-4">
+                    <input
+                      type="hidden"
+                      id="recipient_email"
+                      name="recipient_email"
+                    />
+                    <input
+                      type="hidden"
+                      id="recipient_name"
+                      name="recipient_name"
+                    />
 
-										<div>
-											<label for="recipient" class="mb-2 block text-sm/6 text-slate-700">An</label>
-											<div
-												id="recipient_display"
-												class="block w-full rounded-md bg-slate-100 px-3 py-1.5 text-slate-900 outline outline-1 outline-slate-300 focus:outline-2 focus:outline-indigo-600"></div>
-										</div>
+                    <div>
+                      <label
+                        for="recipient"
+                        class="mb-2 block text-sm/6 text-slate-700"
+                        >An</label
+                      >
+                      <div
+                        id="recipient_display"
+                        class="block w-full rounded-md bg-slate-100 px-3 py-1.5 text-slate-900 outline outline-1 outline-slate-300 focus:outline-2 focus:outline-indigo-600"
+                      ></div>
+                    </div>
 
-										<div>
-											<label for="subject" class="mb-2 block text-sm/6 text-slate-700">Feedback Thema</label>
-											<input
-												type="text"
-												id="subject"
-												name="subject"
-												class="block w-full rounded-md px-3 py-1.5 text-slate-900 outline outline-1 outline-slate-300 focus:outline-2 focus:outline-indigo-600"
-												required />
-										</div>
+                    <div>
+                      <label
+                        for="subject"
+                        class="mb-2 block text-sm/6 text-slate-700"
+                        >Feedback Thema</label
+                      >
+                      <input
+                        type="text"
+                        id="subject"
+                        name="subject"
+                        class="block w-full rounded-md px-3 py-1.5 text-slate-900 outline outline-1 outline-slate-300 focus:outline-2 focus:outline-indigo-600"
+                        required
+                      />
+                    </div>
 
-										<div>
-											<label for="message" class="mb-2 block text-sm/6 text-slate-700">Feedback</label>
-											<textarea
-												id="message"
-												name="message"
-												rows="6"
-												class="block w-full rounded-md px-3 py-1.5 text-slate-900 outline outline-1 outline-slate-300 focus:outline-2 focus:outline-indigo-600"
-												required></textarea>
-										</div>
+                    <div>
+                      <label
+                        for="message"
+                        class="mb-2 block text-sm/6 text-slate-700"
+                        >Feedback</label
+                      >
+                      <textarea
+                        id="message"
+                        name="message"
+                        rows="6"
+                        class="block w-full rounded-md px-3 py-1.5 text-slate-900 outline outline-1 outline-slate-300 focus:outline-2 focus:outline-indigo-600"
+                        required
+                      ></textarea>
+                    </div>
 
-										<div>
-											<label for="notenpunkte" class="mb-2 block text-sm/6 text-slate-700">Notenpunkte (1-15):</label>
-											<input
-												type="number"
-												id="notenpunkte"
-												name="notenpunkte"
-												min="1"
-												max="15"
-												class="block w-full rounded-md px-3 py-1.5 text-slate-900 outline outline-1 outline-slate-300 focus:outline-2 focus:outline-indigo-600"
-												required />
-										</div>
+                    <div>
+                      <label
+                        for="notenpunkte"
+                        class="mb-2 block text-sm/6 text-slate-700"
+                        >Notenpunkte (1-15):</label
+                      >
+                      <input
+                        type="number"
+                        id="notenpunkte"
+                        name="notenpunkte"
+                        min="1"
+                        max="15"
+                        class="block w-full rounded-md px-3 py-1.5 text-slate-900 outline outline-1 outline-slate-300 focus:outline-2 focus:outline-indigo-600"
+                        required
+                      />
+                    </div>
 
-										<div>
-											<label for="feedbackInput" id="feedbackInput" class="mb-2 block text-sm/6 text-slate-700"
-												>Feedback</label
-											>
-											<textarea
-												name="feedbackInput"
-												rows="3"
-												class="block w-full rounded-md px-3 py-1.5 text-slate-900 outline outline-1 outline-slate-300 focus:outline-2 focus:outline-indigo-600"
-												required></textarea>
-										</div>
+                    <div>
+                      <label
+                        for="feedbackInput"
+                        id="feedbackInput"
+                        class="mb-2 block text-sm/6 text-slate-700"
+                        >Feedback</label
+                      >
+                      <textarea
+                        name="feedbackInput"
+                        rows="3"
+                        class="block w-full rounded-md px-3 py-1.5 text-slate-900 outline outline-1 outline-slate-300 focus:outline-2 focus:outline-indigo-600"
+                        required
+                      ></textarea>
+                    </div>
 
-										<div>
-											<label for="own_name" class="mb-2 block text-sm/6 text-slate-700">Eigener Name (optional):</label>
-											<input
-												type="text"
-												id="own_name"
-												name="own_name"
-												class="block w-full rounded-md px-3 py-1.5 text-slate-900 outline outline-1 outline-slate-300 focus:outline-2 focus:outline-indigo-600" />
-										</div>
-										<div>
-											<label for="own_email" class="mb-2 block text-sm/6 text-slate-700"
-												>Eigene E-Mail-Adresse (optional):</label
-											>
-											<input
-												type="email"
-												id="own_email"
-												name="own_email"
-												class="block w-full rounded-md px-3 py-1.5 text-slate-900 outline outline-1 outline-slate-300 focus:outline-2 focus:outline-indigo-600" />
-										</div>
+                    <div>
+                      <label
+                        for="own_name"
+                        class="mb-2 block text-sm/6 text-slate-700"
+                        >Eigener Name (optional):</label
+                      >
+                      <input
+                        type="text"
+                        id="own_name"
+                        name="own_name"
+                        class="block w-full rounded-md px-3 py-1.5 text-slate-900 outline outline-1 outline-slate-300 focus:outline-2 focus:outline-indigo-600"
+                      />
+                    </div>
+                    <div>
+                      <label
+                        for="own_email"
+                        class="mb-2 block text-sm/6 text-slate-700"
+                        >Eigene E-Mail-Adresse (optional):</label
+                      >
+                      <input
+                        type="email"
+                        id="own_email"
+                        name="own_email"
+                        class="block w-full rounded-md px-3 py-1.5 text-slate-900 outline outline-1 outline-slate-300 focus:outline-2 focus:outline-indigo-600"
+                      />
+                    </div>
 
-										<button
-											type="submit"
-											class="block w-full rounded-md bg-indigo-500 px-3 py-1.5 text-white outline outline-1 outline-slate-300 hover:bg-indigo-600 focus:outline-2 focus:outline-indigo-600">
-											E-Mail senden
-										</button>
-									</form>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div
-						class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
-						aria-hidden="true">
-						<div
-							class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
-							style="
-								clip-path: polygon(
-									74.1% 44.1%,
-									100% 61.6%,
-									97.5% 26.9%,
-									85.5% 0.1%,
-									80.7% 2%,
-									72.5% 32.5%,
-									60.2% 62.4%,
-									52.4% 68.1%,
-									47.5% 58.3%,
-									45.2% 34.5%,
-									27.5% 76.7%,
-									0.1% 64.9%,
-									17.9% 100%,
-									27.6% 76.8%,
-									76.1% 97.7%,
-									74.1% 44.1%
-								);
-							"></div>
-					</div>
-				</div>
-			</div>
-		</main>
-		<script>
-			$(document).ready(() => {
-				$("#teacher_search").keyup(function () {
-					var input = $(this).val()
-					if (input != "") {
-						$.ajax({
-							url: "search_teachers.php",
-							method: "POST",
-							data: {input: input},
-							success: (data) => {
-								$("#searchresult").html(data)
-								$("#searchresult").show()
-							},
-						})
-					} else {
-						$("#searchresult").hide()
-					}
-				})
+                    <button
+                      type="submit"
+                      class="block w-full rounded-md bg-indigo-500 px-3 py-1.5 text-white outline outline-1 outline-slate-300 hover:bg-indigo-600 focus:outline-2 focus:outline-indigo-600"
+                    >
+                      E-Mail senden
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
+            aria-hidden="true"
+          >
+            <div
+              class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
+              style="
+                clip-path: polygon(
+                  74.1% 44.1%,
+                  100% 61.6%,
+                  97.5% 26.9%,
+                  85.5% 0.1%,
+                  80.7% 2%,
+                  72.5% 32.5%,
+                  60.2% 62.4%,
+                  52.4% 68.1%,
+                  47.5% 58.3%,
+                  45.2% 34.5%,
+                  27.5% 76.7%,
+                  0.1% 64.9%,
+                  17.9% 100%,
+                  27.6% 76.8%,
+                  76.1% 97.7%,
+                  74.1% 44.1%
+                );
+              "
+            ></div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script>
+      $(document).ready(() => {
+        $("#teacher_search").keyup(function () {
+          var input = $(this).val();
+          if (input != "") {
+            $.ajax({
+              url: "search_teachers.php",
+              method: "POST",
+              data: { input: input },
+              success: (data) => {
+                $("#searchresult").html(data);
+                $("#searchresult").show();
+              },
+            });
+          } else {
+            $("#searchresult").hide();
+          }
+        });
 
-				$("#emailForm").submit(function (e) {
-					e.preventDefault()
-					$.ajax({
-						url: "send_email.php",
-						method: "POST",
-						data: $(this).serialize(),
-						success: (response) => {
-							alert(response)
-							if (response.includes("E-Mail erfolgreich gesendet an")) {
-								window.location.href = "/"
-							} else {
-								$("#emailForm")[0].reset()
-								$("#contactForm").hide()
-							}
-						},
-						error: () => {
-							alert("Fehler beim Senden der E-Mail. Bitte versuchen Sie es erneut.")
-						},
-					})
-				})
-			})
+        $("#emailForm").submit(function (e) {
+          e.preventDefault();
+          $.ajax({
+            url: "send_email.php",
+            method: "POST",
+            data: $(this).serialize(),
+            success: (response) => {
+              alert(response);
+              if (response.includes("E-Mail erfolgreich gesendet an")) {
+                window.location.href = "/";
+              } else {
+                $("#emailForm")[0].reset();
+                $("#contactForm").hide();
+              }
+            },
+            error: () => {
+              alert(
+                "Fehler beim Senden der E-Mail. Bitte versuchen Sie es erneut.",
+              );
+            },
+          });
+        });
+      });
 
-			function selectTeacher(email, firstName, lastName) {
-				$("#recipient_email").val(email)
-				$("#recipient_name").val(firstName + " " + lastName)
-				$("#recipient_display").text(firstName + " " + lastName + " (" + email + ")")
-				$("#contactForm").show()
-				$("#searchresult").hide()
-				$("#teacher_search").val("")
-			}
-		</script>
-	</body>
+      function selectTeacher(email, firstName, lastName) {
+        $("#recipient_email").val(email);
+        $("#recipient_name").val(firstName + " " + lastName);
+        $("#recipient_display").text(
+          firstName + " " + lastName + " (" + email + ")",
+        );
+        $("#contactForm").show();
+        $("#searchresult").hide();
+        $("#teacher_search").val("");
+      }
+    </script>
+  </body>
 </html>
