@@ -20,61 +20,57 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 	$envFile = __DIR__ . '/../.env';
 	if (file_exists($envFile)) {
-			$lines = file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-			foreach ($lines as $line) {
-					if (strpos($line, '=') !== false && strpos($line, '#') !== 0) {
-							list($key, $value) = explode('=', $line, 2);
-							$key = trim($key);
-							$value = trim($value, " \t\n\r\0\x0B\"");
-							$_ENV[$key] = $value;
-					}
+		$lines = file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+		foreach ($lines as $line) {
+			if (strpos($line, '=') !== false && strpos($line, '#') !== 0) {
+				list($key, $value) = explode('=', $line, 2);
+				$key = trim($key);
+				$value = trim($value, " \t\n\r\0\x0B\"");
+				$_ENV[$key] = $value;
 			}
+		}
 	}
 
-	try {
-		$mail->isSMTP();
-		$mail->Host = $_ENV["EMAIL_HOST"];
-		$mail->SMTPAuth = true;
-		$mail->Username = $_ENV["EMAIL_USER"];
-		$mail->Password = $_ENV["EMAIL_PASSWORD"];
 
-		$mail->setFrom($_ENV["EMAIL_FROM_ADDRESS"], $_ENV["EMAIL_FROM_NAME"]);
-		$mail->addAddress($recipient_email, $recipient_name);
+	$mail->isSMTP();
+	$mail->Host = $_ENV["EMAIL_HOST"];
+	$mail->SMTPAuth = true;
+	$mail->Username = $_ENV["EMAIL_USER"];
+	$mail->Password = $_ENV["EMAIL_PASSWORD"];
+	$mail->setFrom($_ENV["EMAIL_FROM_ADDRESS"], $_ENV["EMAIL_FROM_NAME"]);
+	$mail->addAddress($recipient_email, $recipient_name);
 
-		if (!empty($own_email)) {
-			$mail->addAddress($own_email, $own_name);
-		}
-
-		$mail->Subject = "Umfragen Feedback: " . $subject;
-		$mail->Body = "Erhaltenes Feedback: " . nl2br($message) . "<br>Notenpunkte: " . $notenpunkte;
-		if (!empty($own_name)) {
-			$mail->Body .= "<br>Feedback erhalten von: " . $own_name;
-		}
-		if (!empty($own_email && $own_name)) {
-			$mail->Body .= ", " . $own_email;
-		}
-		if (!empty($own_email) && empty($own_name)) {
-			$mail->Body .= "<br>Feedback erhalten von: " . $own_email;
-		}
-		$mail->Body .= "<br>Tipp: " . $feedbackInput;
-
-		$mail->AltBody = "Erhaltenes Feedback: " . $message . "\nNotenpunkte: " . $notenpunkte;
-		if (!empty($own_name)) {
-			$mail->AltBody .= "\nFeedback erhalten von: " . $own_name;
-		}
-		if (!empty($own_email && $own_name)) {
-			$mail->AltBody .= ", " . $own_email;
-		}
-		if (!empty($own_email) && empty($own_name)) {
-			$mail->AltBody .= "\nFeedback erhalten von: " . $own_email;
-		}
-		$mail->AltBody .= "\nSpezifisches Feedback: " . $feedbackInput;
-
-		$mail->send();
-		echo "E-Mail erfolgreich an " . $recipient_name . " gesendet.";
-	} catch (Exception $e) {
-		echo "Nachricht konnte nicht gesendet werden. Mailer-Fehler: {$mail->ErrorInfo}";
+	if (!empty($own_email)) {
+		$mail->addAddress($own_email, $own_name);
 	}
+
+	$mail->Subject = "Umfragen Feedback: " . $subject;
+	$mail->Body = "Erhaltenes Feedback: " . nl2br($message) . "<br>Notenpunkte: " . $notenpunkte;
+	if (!empty($own_name)) {
+		$mail->Body .= "<br>Feedback erhalten von: " . $own_name;
+	}
+	if (!empty($own_email && $own_name)) {
+		$mail->Body .= ", " . $own_email;
+	}
+	if (!empty($own_email) && empty($own_name)) {
+		$mail->Body .= "<br>Feedback erhalten von: " . $own_email;
+	}
+	$mail->Body .= "<br>Tipp: " . $feedbackInput;
+	$mail->AltBody = "Erhaltenes Feedback: " . $message . "\nNotenpunkte: " . $notenpunkte;
+	if (!empty($own_name)) {
+		$mail->AltBody .= "\nFeedback erhalten von: " . $own_name;
+	}
+	if (!empty($own_email && $own_name)) {
+		$mail->AltBody .= ", " . $own_email;
+	}
+	if (!empty($own_email) && empty($own_name)) {
+		$mail->AltBody .= "\nFeedback erhalten von: " . $own_email;
+	}
+	$mail->AltBody .= "\nSpezifisches Feedback: " . $feedbackInput;
+
+	$mail->send();
+	echo "E-Mail erfolgreich an " . $recipient_name . " gesendet.";
+
 } else {
 	echo "Ungültige Anfragemethode";
 }

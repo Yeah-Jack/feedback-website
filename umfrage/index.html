@@ -35,7 +35,7 @@
 				},
 			}
 
-			document.addEventListener("DOMContentLoaded", function () {
+			document.addEventListener("DOMContentLoaded", () => {
 				const urlParams = new URLSearchParams(window.location.search)
 				const surveyId = urlParams.get("id")
 				const surveyTitle = document.getElementById("surveyTitle")
@@ -63,9 +63,8 @@
 					errorContainer.classList.remove("hidden")
 					surveyForm.classList.add("hidden")
 				}
-				surveyForm.addEventListener("submit", function (e) {
+				surveyForm.addEventListener("submit", (e) => {
 					e.preventDefault()
-					const feedback = document.getElementById("feedbackInput").value
 					surveyForm.classList.add("hidden")
 					document.getElementById("feedbackInput").value = ""
 				})
@@ -240,7 +239,7 @@
 			</div>
 		</main>
 		<script>
-			$(document).ready(function () {
+			$(document).ready(() => {
 				$("#teacher_search").keyup(function () {
 					var input = $(this).val()
 					if (input != "") {
@@ -248,7 +247,7 @@
 							url: "search_teachers.php",
 							method: "POST",
 							data: {input: input},
-							success: function (data) {
+							success: (data) => {
 								$("#searchresult").html(data)
 								$("#searchresult").show()
 							},
@@ -264,7 +263,7 @@
 						url: "send_email.php",
 						method: "POST",
 						data: $(this).serialize(),
-						success: function (response) {
+						success: (response) => {
 							alert(response)
 							if (response.includes("E-Mail erfolgreich gesendet an")) {
 								window.location.href = "/"
@@ -273,7 +272,7 @@
 								$("#contactForm").hide()
 							}
 						},
-						error: function () {
+						error: () => {
 							alert("Fehler beim Senden der E-Mail. Bitte versuchen Sie es erneut.")
 						},
 					})
