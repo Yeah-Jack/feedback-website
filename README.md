@@ -4,13 +4,12 @@
 
 ## Getting Started
 
-1. Clone the repository to your local machine.
-2. Set up a web server with PHP and MySQL support.
-3. Create a MySQL database and import the provided SQL schema.
-4. Configure the database connection in the `.env` file.
-5. Install PHPMailer by downloading it from [PHPMailer's GitHub repository](https://github.com/PHPMailer/PHPMailer/archive/master.zip)
-6. Place the extracted PHPMailer folder in the root directory of the project and name it to `PHPMailer-master`.
-7. Start the web server.
+1. Clone the repository to your local machine using `git clone --recursive https://github.com/Yeah-Jack/feedback-website.git`.
+2. Run `git submodule update --init --recursive` to ensure all submodules are initialized if not already.
+3. Set up a web server with PHP and MySQL support.
+4. Create a MySQL database and import the provided SQL schema.
+5. Configure the database connection in the `.env` file.
+6. Start the web server.
 
 ## Further Project Possibilities
 
