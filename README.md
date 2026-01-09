@@ -2,6 +2,8 @@
 
 [![DeepSource](https://app.deepsource.com/gh/Yeah-Jack/feedback-website.svg/?label=active+issues&show_trend=true&token=tRY7kIyOsvQrGFaLqvh5BEsZ)](https://app.deepsource.com/gh/Yeah-Jack/feedback-website/)
 
+<img width="2530" height="1431" alt="Website Screenshot" src="https://github.com/user-attachments/assets/723b98fe-a642-419f-80f4-5b8c70f574ac" />
+
 ## Getting Started
 
 1. Clone the repository to your local machine using `git clone --recursive https://github.com/Yeah-Jack/feedback-website.git`.
