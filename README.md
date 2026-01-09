@@ -7,7 +7,7 @@
 1. Clone the repository to your local machine using `git clone --recursive https://github.com/Yeah-Jack/feedback-website.git`.
 2. Run `git submodule update --init --recursive` to ensure all submodules are initialized if not already.
 3. Set up a web server with PHP and MySQL support.
-4. Create a MySQL database and import the provided SQL schema.
+4. Create a MySQL database and import the SQL schema `schema.sql`.
 5. Configure the database connection in the `.env` file.
 6. Start the web server.
 
